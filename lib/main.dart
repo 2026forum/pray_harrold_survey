@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pray_harrold_survey/ui/auth_screen.dart';
 
 void main() {
   runApp(const App());
@@ -13,7 +14,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
-      home: Placeholder(),
+      home: AuthScreen(),
     );
   }
 }
