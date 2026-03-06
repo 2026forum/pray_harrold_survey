@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "287034324931",
+    "project_id": "ph-survey-97fbe",
+    "storage_bucket": "ph-survey-97fbe.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:287034324931:android:0e5824aa84f1cd68396f76",
+        "android_client_info": {
+          "package_name": "com.example.pray_harrold_survey"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNYy3lyz3ugMn9ALomr9uoQYwUk3moerQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
