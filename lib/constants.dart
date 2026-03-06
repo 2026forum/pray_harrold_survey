@@ -1,0 +1,1 @@
+const int kCommentMaxChar = 200;

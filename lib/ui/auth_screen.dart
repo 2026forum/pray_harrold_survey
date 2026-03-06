@@ -18,6 +18,9 @@ const kGoButtonText = "Begin!";
 ////////////////////////////////////////////////////////
 
 //BLACK BOX/////////////WIDGET//////////////
+
+
+//TODO USE NOTIFIER!!!!
 class AuthScreen extends ConsumerStatefulWidget {
   const AuthScreen({super.key});
 
@@ -47,7 +50,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text(kTitleText)),
+      appBar: AppBar(title: const Text(kTitleText), centerTitle: true,),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(

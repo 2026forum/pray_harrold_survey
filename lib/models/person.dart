@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class Person {
   final String uid;
@@ -19,6 +20,14 @@ class Person {
     required this.colorCode1,
     required this.colorCode2,
   });
+
+
+  int get _shade => 40; 
+
+  Color get proColor => Color(colorCode1);
+  Color get conColor => Color(colorCode2);
+  Color get shadedProColor => proColor.withAlpha(_shade);
+  Color get shadedConColor => conColor.withAlpha(_shade);
 
   Person copyWith({
     String? uid,
