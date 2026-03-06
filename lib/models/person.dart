@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Person {
@@ -73,37 +70,13 @@ class Person {
     );
   }
 
-  String toJson() => json.encode(toMap());
-
-  factory Person.fromJson(String source) => Person.fromMap(json.decode(source));
 
   @override
   String toString() {
     return 'Person(uid: $uid, username: $username, selectedPosts: $selectedPosts, email: $email, biography: $biography, colorCode1: $colorCode1, colorCode2: $colorCode2)';
   }
 
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-  
-    return other is Person &&
-      other.uid == uid &&
-      other.username == username &&
-      listEquals(other.selectedPosts, selectedPosts) &&
-      other.email == email &&
-      other.biography == biography &&
-      other.colorCode1 == colorCode1 &&
-      other.colorCode2 == colorCode2;
-  }
 
-  @override
-  int get hashCode {
-    return uid.hashCode ^
-      username.hashCode ^
-      selectedPosts.hashCode ^
-      email.hashCode ^
-      biography.hashCode ^
-      colorCode1.hashCode ^
-      colorCode2.hashCode;
-  }
+
+
 }

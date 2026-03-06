@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pray_harrold_survey/navigation.dart';
 
-import '../features/auth/items/items_repository.dart';
+import '../features/subjects/subjects_repository.dart';
 import '../util/error_loader.dart';
 
 const kAppBarText = "What's the most important thing?";
@@ -41,14 +41,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             const Divider(),
             Expanded(
               child: ref
-                  .watch(itemsFeedProvider)
+                  .watch(subjectsFeedProvider)
                   .when(
-                    data: (listOfItems) {
+                    data: (listOfSubjects) {
                       return ListView.builder(
-                        itemCount: listOfItems.length,
+                        itemCount: listOfSubjects.length,
                         itemBuilder: (context, index) {
-                          final item = listOfItems[index];
-                          return ListTile(title: Text(item.name));
+                          final subject = listOfSubjects[index];
+                          return ListTile(title: Text(subject.title));
                         },
                       );
                     },
@@ -56,7 +56,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     loading: () => const Loader(),
                   ),
             ),
-            TextButton(onPressed: () => GoTo.raiseItem(context), child: const Text(kRaiseItemStatement)),
+            TextButton(onPressed: () => GoTo.postSubject(context), child: const Text(kRaiseItemStatement)),
           ],
         ),
       ),
