@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pray_harrold_survey/features/auth/auth_controller.dart';
 import 'package:pray_harrold_survey/features/comments/comments_repository.dart';
 import 'package:pray_harrold_survey/features/subjects/subjects_controller.dart';
-import 'package:pray_harrold_survey/ui/widgets/comment_tile.dart';
+import 'package:pray_harrold_survey/ui/tiles/comment_tile.dart';
 import 'package:pray_harrold_survey/util/error_loader.dart';
 
 import '../models/subject.dart';
@@ -68,7 +68,12 @@ class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
                         itemCount: commentList.length,
                         itemBuilder: (context, index) {
                           final comment = commentList[index];
-                          return CommentTile(comment, widget.subject);
+                          return Column(
+                            children: [
+                              CommentTile(comment, widget.subject),
+                              const Divider(),
+                            ],
+                          );
                         },
                       );
                     },

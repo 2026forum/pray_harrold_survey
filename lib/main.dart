@@ -58,7 +58,7 @@ class _AppState extends ConsumerState<App> {
     theme: ThemeData(
       colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF800000)),
       useMaterial3: false,
-      scaffoldBackgroundColor: Colors.blue[70],
+      scaffoldBackgroundColor: Colors.blue[50],
     ),
     home: !_isLocated
         ? const ImproperlyLocatedScreen()

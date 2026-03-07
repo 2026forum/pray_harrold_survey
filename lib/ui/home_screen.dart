@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pray_harrold_survey/navigation.dart';
-import 'package:pray_harrold_survey/ui/widgets/subject_tile.dart';
+import 'package:pray_harrold_survey/ui/tiles/subject_tile.dart';
 
 import '../features/subjects/subjects_repository.dart';
 import '../util/error_loader.dart';
@@ -27,6 +27,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
+  final TextEditingController _commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +50,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         itemCount: listOfSubjects.length,
                         itemBuilder: (context, index) {
                           final subject = listOfSubjects[index];
-                          return SubjectTile(subject);
+                          return SubjectTile(subject, _commentController);
                         },
                       );
                     },
@@ -62,5 +63,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _commentController.dispose();
   }
 }
