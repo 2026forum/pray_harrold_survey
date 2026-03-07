@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 void showSnackyBar(BuildContext context, String text) {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
-    ..showSnackBar(SnackBar(content: Text(text)));
+    ..showSnackBar(SnackBar(content: Center(child: Text(text))));
 }
 
-void showAlertDialog(BuildContext context, String message) => showDialog(
-  context: context,
-  builder: (context) => AlertDialog(title: Text(message)),
-);
+// void showAlertDialog(BuildContext context, String message) => showDialog(
+//   context: context,
+//   builder: (context) => AlertDialog(title: Text(message)),
+// );

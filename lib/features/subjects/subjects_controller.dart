@@ -16,13 +16,15 @@ class SubjectsController extends Notifier<bool> {
     return false;
   }
 
+  SubjectsRepository get _subjectsRepository => ref.read(subjectsRepositoryProvider);
+  String? get _userId => ref.read(personProvider)?.uid;
+
   Future<void> postSubject(String title, BuildContext context) async {
     state = true;
-    final subjectsRepository = ref.read(subjectsRepositoryProvider);
-    final userId = ref.read(personProvider)!.uid; 
+
     final newId = const Uuid().v1();
-    final newSubject = Subject(subjectId: newId, title: title, agreement: [userId], disagreement: []);
-    final result = await subjectsRepository.postSubject(newSubject);
+    final newSubject = Subject(subjectId: newId, title: title, agreement: [?_userId], disagreement: []);
+    final result = await _subjectsRepository.postSubject(newSubject);
     state = false;
     result.fold((l) => showSnackyBar(context, l.message), (r) => showSnackyBar(context, 'Thank You!'));
   }

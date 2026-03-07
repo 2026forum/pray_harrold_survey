@@ -47,7 +47,7 @@ class _AppState extends ConsumerState<App> {
 
   void _getData(User data) async {
     final person = await ref.read(authRepositoryProvider).getPersonData(data.uid).first;
-    ref.read(personProvider.notifier).update((state) => person);
+    ref.read(personProvider.notifier).update((state) => person,);
     setState(() {});
   }
 
@@ -55,7 +55,11 @@ class _AppState extends ConsumerState<App> {
   Widget build(BuildContext context) => MaterialApp(
     title: "Marselina",
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF800000)), useMaterial3: false, scaffoldBackgroundColor: Colors.blue[70]),
+    theme: ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF800000)),
+      useMaterial3: false,
+      scaffoldBackgroundColor: Colors.blue[70],
+    ),
     home: !_isLocated
         ? const ImproperlyLocatedScreen()
         : ref

@@ -37,8 +37,8 @@ class AuthRepository {
       final anonCredential = await _auth.signInAnonymously();
 
       final newPerson = Person(uid: anonCredential.user!.uid, username: username, selectedPosts: [], colorCode1: 0xFF00FF00, colorCode2: 0xFFFF00);
-      await _people.doc(newPerson.uid).set(newPerson.toMap());
-      return right(null);
+
+      return right(_people.doc(newPerson.uid).set(newPerson.toMap()));
     } on FirebaseException catch (e) {
       return left(Failure(e.message!));
     } catch (e) {
