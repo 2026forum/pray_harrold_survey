@@ -9,6 +9,8 @@ class Person {
   final int colorCode2;
   Person({required this.uid, required this.username, this.email, required this.colorCode1, required this.colorCode2});
 
+  bool get isVerified => email != null; 
+
   int get _shade => 40;
 
   Color get proColor => Color(colorCode1);

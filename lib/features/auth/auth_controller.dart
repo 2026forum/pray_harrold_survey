@@ -18,10 +18,18 @@ class AuthController extends Notifier<bool> {
 
   AuthRepository get _authRepository => ref.read(authRepositoryProvider);
 
-  useWithoutAccount(String username, BuildContext context) async {
+  useWithoutAccount(BuildContext context, String username) async {
     state = true;
     final result = await _authRepository.signUp(username);
     state = false;
     result.fold((l) => showSnackyBar(context, l.message), (r) {});
+  }
+
+  linkAccount(BuildContext context, String email, String password) async {
+    state = true;
+    final result = await _authRepository.linkAcount(email, password);
+    result.fold((l) => showSnackyBar(context, l.message), (r) {
+      Navigator.pop(context);
+    });
   }
 }

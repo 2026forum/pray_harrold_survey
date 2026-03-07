@@ -37,7 +37,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         leading: Center(
           child: PopupMenuButton(
             onSelected: (value) {
-              
+              if (value == 'register') {
+                GoTo.linkAccount(context);
+              }
             },
             itemBuilder: (BuildContext context) {
               return [
@@ -50,7 +52,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ),
         actions: [
-          Center(
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: PopupMenuButton(
               onSelected: (value) {
                 if (value == "contact") {
@@ -66,7 +69,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
             Row(

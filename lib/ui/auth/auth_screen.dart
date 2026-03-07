@@ -33,7 +33,6 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   bool _customName = true;
   bool _generateName = false;
 
-
   String alias = "SillyBandwagon";
 
   @override
@@ -45,7 +44,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   void _useApp() {
     ref
         .read(authControllerProvider.notifier)
-        .useWithoutAccount(_customName && isValidTextValue(_nameController) ? validTextValueReturner(_nameController) : alias, context);
+        .useWithoutAccount(context, _customName && isValidTextValue(_nameController) ? validTextValueReturner(_nameController) : alias);
   }
 
   @override

@@ -50,15 +50,13 @@ class AuthRepository {
     _auth.signOut();
   }
 
-  FutureEitherFailureOr<void> linkAcount(String email, String password, bool wantsCommunication, {String? preference}) async {
+  FutureEitherFailureOr<void> linkAcount(String email, String password) async {
     try {
       final emailCred = EmailAuthProvider.credential(email: email, password: password);
       await _auth.currentUser?.linkWithCredential(emailCred);
 
       await _people.doc(_auth.currentUser!.uid).update({"email": email});
-      if (wantsCommunication) {
-        await _people.doc(_auth.currentUser!.uid).update({"EMAIL ME": preference});
-      }
+
       return right(null);
     } on FirebaseException catch (e) {
       return left(Failure(e.message!));
