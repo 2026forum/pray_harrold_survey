@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //app bar text
 const kTitleText = "Uh Oh!";
 //center text
-const kText = "Must Be On Campus To Participate.";
+const kText = "Must Be at Pray-Harrold To Participate.";
 
 class ImproperlyLocatedScreen extends StatelessWidget {
   const ImproperlyLocatedScreen({super.key});
