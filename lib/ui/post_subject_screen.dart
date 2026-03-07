@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pray_harrold_survey/features/comments/comments_controller.dart';
 import 'package:pray_harrold_survey/features/subjects/subjects_controller.dart';
 import 'package:pray_harrold_survey/util/error_loader.dart';
 import 'package:pray_harrold_survey/util/show_messages.dart';
@@ -33,8 +34,10 @@ class _PostSubjectScreenState extends ConsumerState<PostSubjectScreen> {
         showSnackyBar(context, kShortCommentText);
         return;
       }
-      ref.read(subjectsControllerProvider.notifier).postSubject(validTextValueReturner(_titleController), context);
 
+      ref
+          .read(subjectsControllerProvider.notifier)
+          .postSubject(context, validTextValueReturner(_titleController), validTextValueReturner(_commentController));
       Navigator.of(context).pop();
     }
   }
