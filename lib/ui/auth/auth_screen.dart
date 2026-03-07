@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pray_harrold_survey/util/error_loader.dart';
 
-import '../features/auth/alias_engine.dart';
-import '../features/auth/auth_controller.dart';
-import '../util/text_validation.dart';
+import '../../features/auth/alias_engine.dart';
+import '../../features/auth/auth_controller.dart';
+import '../../util/text_validation.dart';
 
 //APP BAR TEXT
 const kTitleText = "Welcome to the Marselina project!";
@@ -32,6 +32,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   final _nameController = TextEditingController();
   bool _customName = true;
   bool _generateName = false;
+
 
   String alias = "SillyBandwagon";
 
@@ -98,7 +99,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                     Column(
                       children: [
                         ElevatedButton(onPressed: _useApp, child: const Text(kGoButtonText)),
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 30),
                       ],
                     ),
                   ],

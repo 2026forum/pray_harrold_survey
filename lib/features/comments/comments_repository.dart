@@ -28,7 +28,23 @@ class CommentsRepository {
     return _subjectComments.snapshots().map((event) => event.docs.map((e) => Comment.fromMap(e.data() as Map<String, dynamic>)).toList());
   }
 
+        Future<String> getUserComment(String userId) async {
+    final document = await _subjectComments.doc(userId).snapshots().first;
+    if (_isDocumentExist(document)) {
+      final data = document.data() as Map<String, dynamic>;
+      return data['commentText'];
+    } else {
+      return '';
+    }
+  }
 
+  bool _isDocumentExist(DocumentSnapshot document) {
+    if (document.exists) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 
 
@@ -43,5 +59,9 @@ class CommentsRepository {
     } catch (e) {
       return left(Failure('something went wrong'));
     }
+  }
+
+    deleteComment(String commentId) {
+    _subjectComments.doc(commentId).delete();
   }
 }

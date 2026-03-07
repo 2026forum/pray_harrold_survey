@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '/features/auth/auth_controller.dart';
 import '/features/auth/auth_repository.dart';
 import '/location_service.dart';
-import '/ui/auth_screen.dart';
+import 'ui/auth/auth_screen.dart';
 import '/ui/home_screen.dart';
 import '/ui/improperly_located_screen.dart';
 import '/util/error_loader.dart';

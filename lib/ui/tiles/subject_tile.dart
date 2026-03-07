@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pray_harrold_survey/features/auth/auth_controller.dart';
 import 'package:pray_harrold_survey/features/comments/comments_controller.dart';
 import 'package:pray_harrold_survey/features/subjects/subjects_controller.dart';
+import 'package:pray_harrold_survey/models/assessment.dart';
 import 'package:pray_harrold_survey/util/text_validation.dart';
 
 import '../../constants.dart';
@@ -132,7 +133,7 @@ class SubjectTile extends ConsumerWidget {
           : userDisagrees
           ? person.shadedConColor
           : null,
-      onTap: () => GoTo.subjectDetail(context, subject),
+      onTap: () => GoTo.subjectDetail(context, subject, userAgrees ? Assessment.agrees : userDisagrees ? Assessment.disagrees : Assessment.neutral),
     );
   }
 }

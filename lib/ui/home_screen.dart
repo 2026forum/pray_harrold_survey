@@ -31,7 +31,40 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text(kAppBarText), centerTitle: true),
+      appBar: AppBar(
+        title: const Text(kAppBarText),
+        centerTitle: true,
+        leading: Center(
+          child: PopupMenuButton(
+            onSelected: (value) {
+              
+            },
+            itemBuilder: (BuildContext context) {
+              return [
+                PopupMenuItem(value: "color", child: const Text('Colours')),
+                PopupMenuItem(value: "register", child: const Text('Register Email')),
+                PopupMenuItem(value: "marcelina", child: const Text('TEAM OPTIONS')),
+              ];
+            },
+            child: const Icon(Icons.menu),
+          ),
+        ),
+        actions: [
+          Center(
+            child: PopupMenuButton(
+              onSelected: (value) {
+                if (value == "contact") {
+                  GoTo.contact(context);
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return [PopupMenuItem(value: "contact", child: const Text('contact'))];
+              },
+              child: const Icon(Icons.menu),
+            ),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

@@ -42,7 +42,8 @@ class PopUpVoterText {
 
 class SubjectDetailScreen extends ConsumerStatefulWidget {
   final Subject subject;
-  const SubjectDetailScreen(this.subject, {super.key});
+  final Assessment assessment;
+  const SubjectDetailScreen(this.subject, this.assessment, {super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _SubjectDetailScreenState();
@@ -50,8 +51,23 @@ class SubjectDetailScreen extends ConsumerStatefulWidget {
 
 class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
   final _commentController = TextEditingController();
+  bool _hasComment = false;
+  Assessment _assessment = Assessment.neutral;
+  @override
+  void initState() {
+    super.initState();
+    _assessment = widget.assessment;
+    _getUserComment();
+  }
 
-  //TODO isdocumentexists
+  void _getUserComment() async {
+    await ref.read(commentsControllerProvider(widget.subject.subjectId)).getUserComment().then((comment) {
+      if (comment != "") {
+        _commentController.text = comment;
+        _hasComment = true;
+      }
+    });
+  }
 
   _makeComment() {
     showDialog(
@@ -76,8 +92,12 @@ class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        if (isValidTextValue(_commentController)) {
+                        if (_hasComment && _commentController.text == "") {
+                          ref.read(commentsControllerProvider(widget.subject.subjectId)).deleteComment();
+                          Navigator.pop(context);
+                        } else if (isValidTextValue(_commentController)) {
                           ref.read(commentsControllerProvider(widget.subject.subjectId)).addComment(validTextValueReturner(_commentController));
+                          _hasComment = true;
                           Navigator.of(context).pop();
                         }
                       },
@@ -99,6 +119,9 @@ class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
     } else {
       ref.read(subjectsControllerProvider.notifier).unDisagree(widget.subject.subjectId);
     }
+    setState(() {
+      _assessment = Assessment.neutral;
+    });
   }
 
   Widget _authoredTile(Comment comment) {
@@ -112,14 +135,13 @@ class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
   _undoVoteDialog(String personId) {
     // IDEA TODO allow the user to indicate which comment, if any, changed their mind.
     String undoPrompt = UndoPrompt.initial;
-    final agrees = widget.subject.agreement.contains(personId);
-    final disagrees = widget.subject.disagreement.contains(personId);
-    undoPrompt = agrees
+
+    undoPrompt = (_assessment == Assessment.agrees)
         ? UndoPrompt.agrees
-        : disagrees
+        : (_assessment == Assessment.disagrees)
         ? UndoPrompt.disagrees
         : UndoPrompt.noJudgment;
-    final isFolly = (!agrees && !disagrees);
+    final isFolly = (_assessment == Assessment.neutral);
     showDialog(
       context: context,
       builder: (context) => Dialog(
@@ -136,7 +158,7 @@ class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
                   if (!isFolly)
                     ElevatedButton(
                       onPressed: () {
-                        _undoVote(agrees);
+                        _undoVote(_assessment == Assessment.agrees);
                         showSnackyBar(context, kOnUndoAction);
                         Navigator.pop(context);
                       },
@@ -158,7 +180,6 @@ class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
   }
 
   _showVoteDialog(Person person) {
-    Assessment assessment = Assessment.neutral;
     showDialog(
       context: context,
       builder: (context) {
@@ -171,10 +192,10 @@ class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
               children: [
                 const Text(PopUpVoterText.heading),
                 RadioGroup<Assessment>(
-                  groupValue: assessment,
+                  groupValue: _assessment,
                   onChanged: (Assessment? value) {
                     setState(() {
-                      assessment = value!;
+                      _assessment = value!;
                     });
                   },
                   child: Column(
@@ -182,12 +203,12 @@ class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
                       RadioListTile<Assessment>(
                         value: Assessment.agrees,
                         title: const Text(PopUpVoterText.agree),
-                        tileColor: assessment == Assessment.agrees ? person.shadedProColor : null,
+                        tileColor: _assessment == Assessment.agrees ? person.shadedProColor : null,
                       ),
                       RadioListTile<Assessment>(
                         value: Assessment.disagrees,
                         title: const Text(PopUpVoterText.disagree),
-                        tileColor: assessment == Assessment.disagrees ? person.shadedConColor : null,
+                        tileColor: _assessment == Assessment.disagrees ? person.shadedConColor : null,
                       ),
                       RadioListTile<Assessment>(value: Assessment.neutral, title: const Text(PopUpVoterText.neutral)),
                       Row(
@@ -201,9 +222,9 @@ class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              if (assessment == Assessment.agrees) {
+                              if (_assessment == Assessment.agrees) {
                                 ref.read(subjectsControllerProvider.notifier).agree(widget.subject.subjectId);
-                              } else if (assessment == Assessment.disagrees) {
+                              } else if (_assessment == Assessment.disagrees) {
                                 ref.read(subjectsControllerProvider.notifier).disagree(widget.subject.subjectId);
                               }
                               Navigator.pop(context);
@@ -226,16 +247,15 @@ class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final person = ref.watch(personProvider)!;
-    final userAgrees = widget.subject.agreement.contains(person.uid);
-    final userDisagrees = widget.subject.disagreement.contains(person.uid);
-    final judgementRendered = (userAgrees || userDisagrees);
+    final judgementRendered = _assessment != Assessment.neutral;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(widget.subject.title),
         actions: [
           //TODO customize Icons
-          if (judgementRendered) Padding(padding: const EdgeInsets.all(8.0), child: Icon(userAgrees ? Icons.face : Icons.warning)),
+          if (judgementRendered)
+            Padding(padding: const EdgeInsets.all(8.0), child: Icon(_assessment == Assessment.agrees ? Icons.face : Icons.warning)),
 
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -265,8 +285,8 @@ class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            const Text(kCommentsHeading),
-            const Divider(),
+            const Text(kCommentsHeading, style: TextStyle(fontWeight: FontWeight.bold)),
+            const Divider(thickness: 3),
             Expanded(
               child: ref
                   .watch(commentsFeedProvider(widget.subject.subjectId))
