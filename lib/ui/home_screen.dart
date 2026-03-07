@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pray_harrold_survey/navigation.dart';
+import 'package:pray_harrold_survey/ui/widgets/subject_tile.dart';
 
 import '../features/subjects/subjects_repository.dart';
 import '../util/error_loader.dart';
@@ -9,7 +10,7 @@ const kAppBarText = "What's the most important thing?";
 
 const Widget kListHeading = Text("      Item", style: TextStyle(fontWeight: FontWeight.bold));
 const kUpVoteLeftHeading = "Productive";
-const kDownVoteRightHeading = "Unproductive";
+const kDownVoteRightHeading = "Nonproductive";
 
 const Icon kUpvoteIcon = Icon(Icons.arrow_upward);
 const Icon kDownvoteIcon = Icon(Icons.arrow_downward);
@@ -48,7 +49,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         itemCount: listOfSubjects.length,
                         itemBuilder: (context, index) {
                           final subject = listOfSubjects[index];
-                          return ListTile(title: Text(subject.title));
+                          return SubjectTile(subject);
                         },
                       );
                     },

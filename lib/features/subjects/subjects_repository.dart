@@ -35,4 +35,32 @@ class SubjectsRepository {
       return left(Failure(e.toString()));
     }
   }
+  void agree(String subjectId, String userId) async {
+    await _subjects.doc(subjectId).update({
+      'agreement': FieldValue.arrayUnion([userId]),
+    });
+  }
+
+  void unAgree(String subjectId, String userId) async {
+    await _subjects.doc(subjectId).update({
+      'agreement': FieldValue.arrayRemove([userId]),
+    });
+  }
+
+  void disagree(String subjectId, String userId) async {
+    await _subjects.doc(subjectId).update({
+      'disagreement': FieldValue.arrayUnion([userId]),
+    });
+  }
+
+  void unDisagree(String subjectId, String userId) async {
+    await _subjects.doc(subjectId).update({
+      'disagreement': FieldValue.arrayRemove([userId]),
+    });
+  }
+
+  void delete(String subjectId) async {
+    await _subjects.doc(subjectId).update({'comments': FieldValue.delete()});
+    await _subjects.doc(subjectId).delete();
+  }
 }

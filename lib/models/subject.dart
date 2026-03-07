@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class Subject {
   final String subjectId;
   final String title;

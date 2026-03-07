@@ -28,4 +28,11 @@ class SubjectsController extends Notifier<bool> {
     state = false;
     result.fold((l) => showSnackyBar(context, l.message), (r) => showSnackyBar(context, 'Thank You!'));
   }
+
+    void agree(String subjectId) => _subjectsRepository.agree(subjectId, _userId!);
+  void disagree(String subjectId,) => _subjectsRepository.disagree(subjectId, _userId!);
+  void unAgree(String subjectId,) => _subjectsRepository.unAgree(subjectId, _userId!);
+  void unDisagree(String subjectId) => _subjectsRepository.unDisagree(subjectId, _userId!);
+
+  void delete(String subjectId) => _subjectsRepository.delete(subjectId);
 }
