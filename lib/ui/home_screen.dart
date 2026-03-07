@@ -6,7 +6,7 @@ import 'package:pray_harrold_survey/ui/tiles/subject_tile.dart';
 import '../features/subjects/subjects_repository.dart';
 import '../util/error_loader.dart';
 
-const kAppBarText = "What's the most important thing?";
+const kAppBarText = "What's Important?";
 
 const Widget kListHeading = Text("      Item", style: TextStyle(fontWeight: FontWeight.bold));
 const kUpVoteLeftHeading = "Productive";

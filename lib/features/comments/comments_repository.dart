@@ -28,6 +28,13 @@ class CommentsRepository {
     return _subjectComments.snapshots().map((event) => event.docs.map((e) => Comment.fromMap(e.data() as Map<String, dynamic>)).toList());
   }
 
+
+
+
+
+
+  
+
   FutureEitherFailureOr<void> addComment(Comment comment, String userId) async {
     try {
       return right(_subjectComments.doc(userId).set(comment.toMap()));

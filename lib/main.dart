@@ -11,6 +11,8 @@ import '/ui/improperly_located_screen.dart';
 import '/util/error_loader.dart';
 import '/util/firebase/firebase_options.dart';
 
+const int kMaroonCode = 0xFF800000;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -25,6 +27,7 @@ class App extends ConsumerStatefulWidget {
 }
 
 class _AppState extends ConsumerState<App> {
+  int _themeColor = kMaroonCode;
   bool _isLocated = false;
 
   @override
@@ -47,8 +50,10 @@ class _AppState extends ConsumerState<App> {
 
   void _getData(User data) async {
     final person = await ref.read(authRepositoryProvider).getPersonData(data.uid).first;
-    ref.read(personProvider.notifier).update((state) => person,);
-    setState(() {});
+    ref.read(personProvider.notifier).update((state) => person);
+    setState(() {
+      _themeColor = person.colorCode1;
+    });
   }
 
   @override
@@ -56,9 +61,9 @@ class _AppState extends ConsumerState<App> {
     title: "Marselina",
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF800000)),
+      colorScheme: ColorScheme.fromSeed(seedColor: Color(_themeColor)),
       useMaterial3: false,
-      scaffoldBackgroundColor: Colors.blue[50],
+      scaffoldBackgroundColor: Colors.blue[90],
     ),
     home: !_isLocated
         ? const ImproperlyLocatedScreen()

@@ -98,7 +98,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                     Column(
                       children: [
                         ElevatedButton(onPressed: _useApp, child: const Text(kGoButtonText)),
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 25),
                       ],
                     ),
                   ],
