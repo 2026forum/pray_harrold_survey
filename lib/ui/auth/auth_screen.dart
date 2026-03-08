@@ -51,7 +51,8 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   Widget build(BuildContext context) {
     final isLoading = ref.watch(authControllerProvider);
     return Scaffold(
-      appBar: AppBar(title: const Text(kTitleText), centerTitle: true),
+    
+      appBar: AppBar(title: const Text(kTitleText), centerTitle: true, actions: [], ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(

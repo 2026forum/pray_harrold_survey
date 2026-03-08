@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class PersonalOptionsScreen extends ConsumerStatefulWidget {
   const PersonalOptionsScreen({super.key});
 
@@ -10,9 +9,8 @@ class PersonalOptionsScreen extends ConsumerStatefulWidget {
 }
 
 class _PersonalOptionsScreenState extends ConsumerState<PersonalOptionsScreen> {
-
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(appBar: AppBar(centerTitle: true, title: const Text("COMING SOON")),body: Center(child: Text("USERNAME CHANGE AND MORE"),),);
   }
 }

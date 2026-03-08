@@ -88,9 +88,7 @@ class SubjectTile extends ConsumerWidget {
       return IconButton(
         onPressed: () {
           _askForComment(context).then((value) {
-            if (value == null) {
-              return;
-            } else if (value && isValidTextValue(commentController)) {
+            if (value == true && isValidTextValue(commentController)) {
               ref.read(commentsControllerProvider(subject.subjectId)).addComment(commentController.text);
             }
 
@@ -104,9 +102,7 @@ class SubjectTile extends ConsumerWidget {
       return IconButton(
         onPressed: () {
           _askForComment(context).then((value) {
-            if (value == null) {
-              return;
-            } else if (value && isValidTextValue(commentController)) {
+            if (value == true && isValidTextValue(commentController)) {
               ref.read(commentsControllerProvider(subject.subjectId)).addComment(commentController.text);
             }
             ref.read(subjectsControllerProvider.notifier).disagree(subject.subjectId);
@@ -133,7 +129,15 @@ class SubjectTile extends ConsumerWidget {
           : userDisagrees
           ? person.shadedConColor
           : null,
-      onTap: () => GoTo.subjectDetail(context, subject, userAgrees ? Assessment.agrees : userDisagrees ? Assessment.disagrees : Assessment.neutral),
+      onTap: () => GoTo.subjectDetail(
+        context,
+        subject,
+        userAgrees
+            ? Assessment.agrees
+            : userDisagrees
+            ? Assessment.disagrees
+            : Assessment.neutral,
+      ),
     );
   }
 }

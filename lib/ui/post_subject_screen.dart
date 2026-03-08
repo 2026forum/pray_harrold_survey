@@ -42,7 +42,6 @@ class _PostSubjectScreenState extends ConsumerState<PostSubjectScreen> {
     }
   }
 
-  //TODO USE NOTIFIER!!!!!
   @override
   Widget build(BuildContext context) {
     final isLoading = ref.watch(subjectsControllerProvider);

@@ -5,6 +5,9 @@ import 'package:pray_harrold_survey/ui/menu_pages/contact_me_screen.dart';
 import 'package:pray_harrold_survey/ui/menu_pages/select_color_screen.dart';
 import 'package:pray_harrold_survey/ui/post_subject_screen.dart';
 import 'package:pray_harrold_survey/ui/subject_detail_screen.dart';
+import 'package:pray_harrold_survey/ui/team_pages/geolog_screen.dart';
+import 'package:pray_harrold_survey/ui/team_pages/team_menu.dart';
+import 'package:pray_harrold_survey/ui/team_pages/thoughts_screen.dart';
 
 import 'models/person.dart';
 import 'models/subject.dart';
@@ -26,7 +29,20 @@ class GoTo {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LinkAccountScreen()));
   }
 
-  static colours(BuildContext context, Person person) {
+  static colours(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SelectColorScreen()));
+  }
+
+  ///TEAM PAGES
+  static teamPage(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TeamMenu()));
+  }
+
+  static thoughts(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ThoughtsScreen()));
+  }
+
+  static logCoordinates(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const GeologScreen()));
   }
 }

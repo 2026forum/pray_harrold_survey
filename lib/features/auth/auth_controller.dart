@@ -42,4 +42,11 @@ class AuthController extends Notifier<bool> {
       Navigator.pop(context);
     });
   }
+
+  logOut(BuildContext context) {
+    _authRepository.signOut();
+    while (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    }
+  }
 }

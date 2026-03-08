@@ -32,7 +32,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final person = ref.watch(personProvider)!;
-    final isVerified = person.isVerified; 
+    final isVerified = person.isVerified;
     return Scaffold(
       appBar: AppBar(
         title: const Text(kAppBarText),
@@ -41,18 +41,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: PopupMenuButton(
             onSelected: (value) {
               if (value == 'colors') {
-                GoTo.colours(context, person);
+                GoTo.colours(context);
               }
               if (value == 'register') {
                 GoTo.linkAccount(context);
               }
+              if (value == 'Marcelina') {
+                GoTo.teamPage(context);
+              }
             },
             itemBuilder: (BuildContext context) {
               return [
-                if (!isVerified) PopupMenuItem(value: "colors", child: const Text('Change Colors')),
+                PopupMenuItem(value: "colors", child: const Text('Change Colors')),
                 if (!isVerified) PopupMenuItem(value: "register", child: const Text('Register Email')),
 
-                PopupMenuItem(value: "marcelina", child: const Text('TEAM OPTIONS')),
+                PopupMenuItem(value: "Marcelina", child: const Text('TEAM OPTIONS')),
               ];
             },
             child: const Icon(Icons.menu),
@@ -60,7 +63,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(12.0),
             child: PopupMenuButton(
               onSelected: (value) {
                 if (value == "contact") {
