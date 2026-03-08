@@ -1,5 +1,8 @@
 import 'dart:math';
 
+
+
+//TODO fix single letter words
 class AliasEngine {
   static String randomWord(List<String> words) {
     return words[Random().nextInt(words.length)];

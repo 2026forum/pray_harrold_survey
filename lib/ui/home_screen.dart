@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pray_harrold_survey/features/auth/auth_controller.dart';
 import 'package:pray_harrold_survey/navigation.dart';
 import 'package:pray_harrold_survey/ui/tiles/subject_tile.dart';
 
@@ -30,6 +31,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   final TextEditingController _commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final person = ref.watch(personProvider)!;
+    final isVerified = person.isVerified; 
     return Scaffold(
       appBar: AppBar(
         title: const Text(kAppBarText),
@@ -37,14 +40,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         leading: Center(
           child: PopupMenuButton(
             onSelected: (value) {
+              if (value == 'colors') {
+                GoTo.colours(context, person);
+              }
               if (value == 'register') {
                 GoTo.linkAccount(context);
               }
             },
             itemBuilder: (BuildContext context) {
               return [
-                PopupMenuItem(value: "color", child: const Text('Colours')),
-                PopupMenuItem(value: "register", child: const Text('Register Email')),
+                if (!isVerified) PopupMenuItem(value: "colors", child: const Text('Change Colors')),
+                if (!isVerified) PopupMenuItem(value: "register", child: const Text('Register Email')),
+
                 PopupMenuItem(value: "marcelina", child: const Text('TEAM OPTIONS')),
               ];
             },

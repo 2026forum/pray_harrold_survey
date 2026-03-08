@@ -18,6 +18,16 @@ class AuthController extends Notifier<bool> {
 
   AuthRepository get _authRepository => ref.read(authRepositoryProvider);
 
+  String? get _userId => ref.read(personProvider)?.uid;
+
+  changeColor(bool isColor1, int colorCode) {
+    if (isColor1) {
+      _authRepository.changeColor1(_userId!, colorCode);
+    } else {
+      _authRepository.changeColor2(_userId!, colorCode);
+    }
+  }
+
   useWithoutAccount(BuildContext context, String username) async {
     state = true;
     final result = await _authRepository.signUp(username);

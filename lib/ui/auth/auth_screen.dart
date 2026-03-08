@@ -5,7 +5,7 @@ import 'package:pray_harrold_survey/util/error_loader.dart';
 import '../../features/auth/alias_engine.dart';
 import '../../features/auth/auth_controller.dart';
 import '../../util/text_validation.dart';
-
+//TODO login screen
 //APP BAR TEXT
 const kTitleText = "Welcome to the Marselina project!";
 
@@ -30,8 +30,8 @@ class AuthScreen extends ConsumerStatefulWidget {
 
 class _AuthScreenState extends ConsumerState<AuthScreen> {
   final _nameController = TextEditingController();
-  bool _customName = true;
-  bool _generateName = false;
+  bool _customName = false;
+  bool _generateName = true;
 
   String alias = "SillyBandwagon";
 
@@ -68,6 +68,9 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                           onChanged: (value) {
                             setState(() {
                               _customName = value!;
+                              if (!_customName && !_generateName) {
+                                _generateName = true; 
+                              }
                               if (_customName) {
                                 _generateName = false;
                               }

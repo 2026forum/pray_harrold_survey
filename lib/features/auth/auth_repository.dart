@@ -36,7 +36,7 @@ class AuthRepository {
     try {
       final anonCredential = await _auth.signInAnonymously();
 
-      final newPerson = Person(uid: anonCredential.user!.uid, username: username, colorCode1: 0xFF00FF00, colorCode2: 0xFFFF00);
+      final newPerson = Person(uid: anonCredential.user!.uid, username: username, colorCode1: 0xFF00FF00, colorCode2: 0xFFFFFF00);
 
       return right(_people.doc(newPerson.uid).set(newPerson.toMap()));
     } on FirebaseException catch (e) {
@@ -46,10 +46,16 @@ class AuthRepository {
     }
   }
 
-  signOut() {
-    _auth.signOut();
+  void changeColor1(String userId, int colorCode) async {
+    await _people.doc(userId).update({
+      'colorCode1':colorCode
+    });
   }
-
+    void changeColor2(String userId, int colorCode) async {
+    await _people.doc(userId).update({
+      'colorCode2':colorCode
+    });
+  }
   FutureEitherFailureOr<void> linkAcount(String email, String password) async {
     try {
       final emailCred = EmailAuthProvider.credential(email: email, password: password);
@@ -74,5 +80,9 @@ class AuthRepository {
     } catch (e) {
       return left(Failure(e.toString()));
     }
+  }
+
+  signOut() {
+    _auth.signOut();
   }
 }
