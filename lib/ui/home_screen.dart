@@ -28,6 +28,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
+  bool _subjectsShuffled = false;
   final TextEditingController _commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -42,11 +43,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             onSelected: (value) {
               if (value == 'colors') {
                 GoTo.colours(context);
-              }
-              if (value == 'register') {
+              } else if (value == 'register') {
                 GoTo.linkAccount(context);
-              }
-              if (value == 'Marcelina') {
+              } else if (value == 'settings') {
+                GoTo.userSettings(context);
+              } else if (value == 'Marcelina') {
                 GoTo.teamPage(context);
               }
             },
@@ -54,7 +55,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               return [
                 PopupMenuItem(value: "colors", child: const Text('Change Colors')),
                 if (!isVerified) PopupMenuItem(value: "register", child: const Text('Register Email')),
-
+                if (isVerified) PopupMenuItem(value: "settings", child: const Text('User Settings')),
                 PopupMenuItem(value: "Marcelina", child: const Text('TEAM OPTIONS')),
               ];
             },
@@ -92,6 +93,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   .watch(subjectsFeedProvider)
                   .when(
                     data: (listOfSubjects) {
+                      while (!_subjectsShuffled) {
+                        listOfSubjects.shuffle();
+                        _subjectsShuffled = true;
+                      }
+
                       return ListView.builder(
                         itemCount: listOfSubjects.length,
                         itemBuilder: (context, index) {

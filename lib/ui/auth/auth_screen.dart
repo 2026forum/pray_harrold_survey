@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pray_harrold_survey/navigation.dart';
 import 'package:pray_harrold_survey/util/error_loader.dart';
 
 import '../../features/auth/alias_engine.dart';
 import '../../features/auth/auth_controller.dart';
 import '../../util/text_validation.dart';
-//TODO login screen
+
+
 //APP BAR TEXT
 const kTitleText = "Welcome to the Marselina project!";
 
@@ -51,8 +53,26 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   Widget build(BuildContext context) {
     final isLoading = ref.watch(authControllerProvider);
     return Scaffold(
-    
-      appBar: AppBar(title: const Text(kTitleText), centerTitle: true, actions: [], ),
+      appBar: AppBar(
+        title: const Text(kTitleText),
+        centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: PopupMenuButton(
+              onSelected: (value) {
+                if (value == "account") {
+                  GoTo.logIn(context);
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return [PopupMenuItem(value: "account", child: const Text("Log In"))];
+              },
+              icon: const Icon(Icons.menu),
+            ),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
@@ -70,7 +90,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                             setState(() {
                               _customName = value!;
                               if (!_customName && !_generateName) {
-                                _generateName = true; 
+                                _generateName = true;
                               }
                               if (_customName) {
                                 _generateName = false;

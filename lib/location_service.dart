@@ -1,17 +1,15 @@
 import 'package:geolocator/geolocator.dart';
 
-
 //TODO FIT THIS PAGE TO PROJECT
 
 //TODO get coordinates
 Future<bool> isProperlyLocated() async {
   try {
     final position = await determinePosition();
-    print(position);
 
-    final yourLatitude = roundDouble(position.latitude, 2);
-    final yourLongitude = roundDouble(position.longitude, 2);
-    if (yourLongitude == 42.24 && yourLatitude == 42.24) ;
+    // final yourLatitude = roundDouble(position.latitude, 2);
+    // final yourLongitude = roundDouble(position.longitude, 2);
+    // if (yourLongitude == 42.24 && yourLatitude == 42.24) ;
   } catch (e) {
     return false;
   }

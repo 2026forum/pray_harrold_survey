@@ -43,6 +43,15 @@ class AuthController extends Notifier<bool> {
     });
   }
 
+  logIn(BuildContext context, String email, String password) async {
+    final result = await _authRepository.logIn(email, password);
+    result.fold((l) => showSnackyBar(context, l.message), (r) {
+      while (Navigator.canPop(context)) {
+        Navigator.pop(context);
+      }
+    });
+  }
+
   logOut(BuildContext context) {
     _authRepository.signOut();
     while (Navigator.canPop(context)) {

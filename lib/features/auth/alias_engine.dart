@@ -13,7 +13,6 @@ class AliasEngine {
     return newName;
   }
 
-  //TODO make this a provider instead
 
   static Map<String, String> splitWords(String alias) {
     final List<String> chars = alias.split('');
@@ -238,9 +237,9 @@ class AliasEngine {
       "Wriggly",
       //no J, K, Q, U, X, Y, Z,
       "Artic",
-      "B",
-      "C",
-      "D",
+      // "B",
+      // "C",
+      // "D",
     ];
   }
 
@@ -437,7 +436,7 @@ class AliasEngine {
       "Dork",
       "Etch",
       "Font",
-      "G",
+      "Granite",
       "Hunch",
       "Integer",
       //

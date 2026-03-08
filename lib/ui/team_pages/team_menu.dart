@@ -32,6 +32,7 @@ class TeamMenu extends ConsumerWidget {
               },
               child: const Text("LOG OUT"),
             ),
+            const SizedBox(height: 1.0,)
           ],
         ),
       ),

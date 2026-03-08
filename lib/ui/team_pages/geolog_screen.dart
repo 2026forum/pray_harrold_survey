@@ -40,7 +40,7 @@ class _GeologScreenState extends State<GeologScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextField(
+              const TextField(
                 minLines: 3,
                 maxLines: 5,
                 style: TextStyle(fontSize: 24),

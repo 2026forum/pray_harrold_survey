@@ -43,6 +43,7 @@ class PopUpVoterText {
 class SubjectDetailScreen extends ConsumerStatefulWidget {
   final Subject subject;
   final Assessment assessment;
+
   const SubjectDetailScreen(this.subject, this.assessment, {super.key});
 
   @override
@@ -53,6 +54,7 @@ class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
   final _commentController = TextEditingController();
   bool _hasComment = false;
   Assessment _assessment = Assessment.neutral;
+  bool _commentsShuffled = false;
   @override
   void initState() {
     super.initState();
@@ -292,6 +294,10 @@ class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
                   .watch(commentsFeedProvider(widget.subject.subjectId))
                   .when(
                     data: (commentList) {
+                      while (!_commentsShuffled) {
+                        commentList.shuffle();
+                        _commentsShuffled = true;
+                      }
                       return ListView.builder(
                         itemCount: commentList.length,
                         itemBuilder: (context, index) {
